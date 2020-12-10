@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
+</head>
+<body>
+    <div class="container-fluid">
+    <div class="navBar">
+        <h3 >Welcome {{user.first_name}} {{user.last_name}}</p>
+        <div class="account_actions">
+            <p>
+            <a href="/edit/{{user.id}}">Edit My Account</a>
+            <form action="logout" method="POST" class="logoutbtn">
+            {% csrf_token %}
+            <input type="submit" value="Logout">
+            </form>
+            </p>
+        </div>
+    </div>
+
+    
+    <h3>Quotes</h3>
+    <ul>
+    {% for quote in quotes %}
+        <li class="nodots">
+            <div class="quoteBox">
+                <p>{{quote.author_by}}: "{{quote.quote}}"</p>
+                <p>Posted by: <a href="/profile/{{quote.posted_by.id}}">{{quote.posted_by.first_name}} </a></p>
+                <p> {{quote.user_likes.count}} people like this</p>
+                {% if quote not in user.likes.all %}
+                <form action="like/{{quote.id}}" method="POST">
+                    <input type="submit" value="Like">
+                    {% csrf_token %}
+                </form>
+                {% endif %}
+                {% if quote.posted_by == user %}
+                <form action="delete_quote/{{quote.id}}" method="POST">
+                    {% csrf_token %}
+                    <input class="deletebtn" type="submit" value="Delete">
+                </form>
+                {% endif %}
+            </div>
+        </li>
+    {% endfor %}
+    </ul>
+        <div class="addQuote">
+            <h3>Add a Quote!</h3>
+            {% if messages %}
+            <ul>
+                {% for message in messages%}
+                <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <form action="/create_quote" method="POST">
+                {% csrf_token %}
+            <p>Author   <input type="text" name="author_by"></p>
+            <p class="align-top">Quote    <textarea name="quote"></textarea></p>
+            <input type="submit" value="Submit">
+            </form>
+        </div>
+    </div>
+</body>
+</html>

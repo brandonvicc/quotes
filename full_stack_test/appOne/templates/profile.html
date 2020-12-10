@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
+</head>
+<body>
+    <h3>{{user.first_name}} {{user.last_name}}'s Quotes</h3>
+    <a href="/quotes" class="account_actions">Back</a>
+    <form action="/logout" method="POST" class="logoutbtn">
+        {% csrf_token %}
+        <input type="submit" value="Logout">
+    </form>
+    {% for quote in user.posted_quotes.all %}
+    <div class="quoteBox">
+        <p>{{quote.author_by}}: "{{quote.quote}}"</p>
+    </div>
+    {% endfor %}
+</body>
+</html>

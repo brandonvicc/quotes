@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Edit Profile</title>
+    {% load static %}
+    <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
+</head>
+<body>
+    <h1 class="headMarg">Edit My Account</h1>
+    <a href="/quotes" class="account_actions">Back</a>
+    <form action="/logout" method="POST">
+        {% csrf_token %}
+        <input type="submit" value="Logout" class="logoutbtn">
+    </form>
+    {% if messages %}
+        <ul>
+            {% for message in messages%}
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    <form action="/update/{{user.id}}" method="POST">
+        {% csrf_token %}
+        <p>First Name: <input type="text" name="first_name" value={{user.first_name}}></p>
+        <p>Last Name: <input type="text" name="last_name" value={{user.last_name}}></p>
+        <p>Email: <input type="text" name="email" value={{user.email}}></p>
+        <input type="submit" value="update">
+    </form>
+</body>
+</html>
