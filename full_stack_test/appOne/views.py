@@ -46,7 +46,7 @@ def login(request):
 def logout(request):
     if request.method == "POST":
         request.session.clear()
-    return redirect("/")
+    return redirect("/quotes")
 
 def quotes(request):
     if request.method == 'GET':
@@ -57,7 +57,6 @@ def quotes(request):
                 'user': user,
                 "quotes": Quote.objects.all()
                 }
-            print(user.id)
             return render(request,'quotes.html', context)
         else:
             context = {

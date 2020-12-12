@@ -81,10 +81,11 @@
   }
   .quoteBox {
     border: 2px black solid;
-    height: 240px;
-    width: 200px;
+    height: 180px;
+    width: 250px;
     display: inline-block;
     padding: 10px;
+    margin-bottom: 10px;
 }
 .account_actions{
     height: 50px;
