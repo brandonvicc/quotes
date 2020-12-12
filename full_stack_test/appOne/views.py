@@ -57,9 +57,15 @@ def quotes(request):
                 'user': user,
                 "quotes": Quote.objects.all()
                 }
+            print(user.id)
             return render(request,'quotes.html', context)
         else:
-            return redirect('/')
+            context = {
+                "likes" : Quote.objects.annotate(likes=Count('user_likes')),
+                "quotes": Quote.objects.all()
+                }
+            print('no user in session')
+            return render(request,'quotes.html', context)
 
 def create_quote(request):
     if request.method == 'POST':
@@ -112,7 +118,9 @@ def update(request,id):
                     print('updating atm')
                     update_this.first_name=request.POST['first_name']
                     update_this.last_name=request.POST['last_name']
-                    update_this.email=request.POST['email']
+                    print(update_this.email)
+                    if update_this.email != request.POST['email']:
+                        update_this.email=request.POST['email']
                     update_this.save()
         return redirect('/quotes')
 
