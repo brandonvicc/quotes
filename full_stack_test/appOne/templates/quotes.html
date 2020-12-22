@@ -39,14 +39,14 @@
                 {% if 'user_id' in request.session %}
                     <form class="d-flex" action="logout" method="POST" class="logoutbtn">
                         {% csrf_token %}
-                        <input class="btn btn-outline-success" type="submit" value="Logout">
+                        <input class="btn btn-outline-danger" type="submit" value="Logout">
                     </form>
                 {% else %}
                 <form class="d-flex" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <input class="form-control me-2" type="email" placeholder="Email" name="email">
                     <input class="form-control me-2" type="password" placeholder="Password" name="password">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                    <button class="btn btn-outline-primary" type="submit">Login!</button>
                 </form>
                 {% endif %}
             </div>
@@ -71,7 +71,7 @@
                 <input type="submit" value="Submit">
                 </form>
             {% else %}
-            <h3><a href="/"> Log in or Create Account to post quotes!</a></h3>
+            <h3><a href="/create_account"> Log in or Create Account to post quotes!</a></h3>
             {% endif %}
             </div>
 
@@ -95,11 +95,18 @@
                             <input type="submit" value="Like">
                             {% csrf_token %}
                         </form>
+
+                        {% else%}
+                        <form action="delete_like/{{quote.id}}" method="POST">
+                            <input type="submit" class="btn btn-outline-secondary" value="Unlike">
+                            {% csrf_token %}
+                        </form>
+
                         {% endif %}
                         {% if quote.posted_by == user %}
                         <form action="delete_quote/{{quote.id}}" method="POST">
                             {% csrf_token %}
-                            <input class="deletebtn" type="submit" value="Delete">
+                            <input class="deletebtn btn btn-outline-danger" type="submit" value="Delete">
                         </form>
                         {% endif %}
                     </div>

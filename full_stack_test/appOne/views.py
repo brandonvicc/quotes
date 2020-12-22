@@ -6,7 +6,10 @@ from django.db.models import Count
 
 # Create your views here.
 def root(request):
-    return render(request,'root.html')
+    return redirect('/quotes')
+
+def create_account(request):
+    return render(request,'create_account.html')
 
 def create(request):
     if request.method == "POST":
@@ -14,7 +17,7 @@ def create(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request,value)
-            return redirect('/')
+            return redirect('/create_account')
         else:
             pw_hash = bcrypt.hashpw(request.POST['password'].encode(), bcrypt.gensalt()).decode() 
             user = User.objects.create(first_name= request.POST['first_name'], last_name= request.POST['last_name'], email= request.POST['email'], password = pw_hash)
@@ -27,7 +30,7 @@ def login(request):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request,value)
-            return redirect('/')
+            return redirect('/create_account')
         else:
             user = User.objects.filter(email= request.POST['email'])
             if user:
@@ -41,7 +44,7 @@ def login(request):
             else:
                 print('Name not fount')
                 messages.error(request, "Incorrect name or password")
-    return redirect('/')
+    return redirect('/create_account')
 
 def logout(request):
     if request.method == "POST":
@@ -140,4 +143,13 @@ def like(request,id):
             quote = quoteLike[0]
             user = User.objects.get(id=request.session['user_id'])
             quote.user_likes.add(user)
+    return redirect('/quotes')
+
+def delete_like(request,id):
+    if request.method == 'POST':
+        quoteLike = Quote.objects.filter(id=id)
+        if quoteLike:
+            quote = quoteLike[0]
+            user = User.objects.get(id=request.session['user_id'])
+            quote.user_likes.remove(user)
     return redirect('/quotes')
