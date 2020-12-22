@@ -4,7 +4,9 @@
  * Copyright 2011-2018 Twitter, Inc.
  * Licensed under MIT (https://github.com/twbs/bootstrap/blob/master/LICENSE)
  */
- :root {
+  :root {
+    --nav_color: #7fbfe4;
+
     --blue: #007bff;
     --indigo: #6610f2;
     --purple: #6f42c1;
@@ -66,7 +68,7 @@
     line-height: 1.5;
     color: #212529;
     text-align: left;
-    background-color: #fff;
+    background-color: rgba(170, 170, 170, 0.788);
   }
   .reg{
     height: 1000px;
@@ -79,13 +81,21 @@
     top:10px;
     left:50%;
   }
+
+  .daily-quotes{
+    padding-left: 105px;
+  }
+
   .quoteBox {
     border: 2px black solid;
-    height: 180px;
-    width: 250px;
+    background-color: #7fbfe4;
+    height: 250px;
+    width: 300px;
     display: inline-block;
     padding: 10px;
-    margin-bottom: 10px;
+    margin-bottom: 30px;
+    box-shadow: 5px 10px #888888;
+    border-radius: 5px;
 }
 .account_actions{
     height: 50px;
@@ -6081,6 +6091,16 @@
   button.bg-secondary:hover,
   button.bg-secondary:focus {
     background-color: #545b62 !important;
+  }
+
+  .bg-nav_bar {
+    background-color: #7fbfe4 !important;
+  }
+
+  a.bg-nav_bar:hover, a.bg-nav_bar:focus,
+  button.bg-nav_bar:hover,
+  button.bg-nav_bar:focus {
+    background-color: #1e7e34 !important;
   }
   
   .bg-success {

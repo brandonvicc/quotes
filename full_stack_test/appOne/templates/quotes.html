@@ -17,7 +17,7 @@
         {% endif %}
     </div>
 
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-nav_bar bg-nav_bar">
         <div class="container-fluid">
             <a class="navbar-brand" href="{% url 'quotes' %}"><strong>Quotes</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -46,7 +46,7 @@
                     {% csrf_token %}
                     <input class="form-control me-2" type="email" placeholder="Email" name="email">
                     <input class="form-control me-2" type="password" placeholder="Password" name="password">
-                    <button class="btn btn-outline-success" type="submit">Search</button>
+                    <button class="btn btn-outline-primary" type="submit">Search</button>
                 </form>
                 {% endif %}
             </div>
@@ -76,7 +76,7 @@
             </div>
 
             <div class="col-8">
-                <h3>Quotes</h3>
+                <h3 class="text-justify daily-quotes" >Daily Quotes</h3>
                 <ul>
                 {% for quote in quotes %}
                 <li class="nodots">
@@ -85,6 +85,8 @@
                         <p>Posted by: <a href="/profile/{{quote.posted_by.id}}">{{quote.posted_by.first_name}} </a></p>
                         {% if quote.user_likes.count > 1 %}
                         <p> {{quote.user_likes.count}} people like this</p>
+                        {% elif quote.user_likes.count == 0 %}
+                        <p></p>
                         {% else %}
                         <p> {{quote.user_likes.count}} person likes this</p>
                         {% endif %}
