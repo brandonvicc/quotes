@@ -90,9 +90,13 @@
                         {% else %}
                         <p> {{quote.user_likes.count}} person likes this</p>
                         {% endif %}
+
+                        {% if 'user_id' not in request.session %}
+                        <p class="text-danger fw-bolder">Log in to leave a like!</p>
+                        {% else %}
                         {% if quote not in user.likes.all %}
                         <form action="like/{{quote.id}}" method="POST">
-                            <input type="submit" value="Like">
+                            <input type="submit" class="btn btn-outline-success" value="Like">
                             {% csrf_token %}
                         </form>
 
@@ -108,6 +112,8 @@
                             {% csrf_token %}
                             <input class="deletebtn btn btn-outline-danger" type="submit" value="Delete">
                         </form>
+                        {% endif %}
+
                         {% endif %}
                     </div>
                 </li>
