@@ -76,6 +76,19 @@
     display: inline-block;
   }
 
+  .login-padding{
+    padding-bottom:10px;
+  }
+
+    .brand-padding{
+      padding-bottom:23px;
+    }
+
+  .login-text-margin{
+    margin-right: 10px;
+    margin-left: 10px;
+  }
+
   .loginPos{
     position: absolute;
     top:10px;
@@ -89,7 +102,7 @@
   .quoteBox {
     border: 2px black solid;
     background-color: #7fbfe4;
-    height: 250px;
+    height: 270px;
     width: 300px;
     display: inline-block;
     padding: 10px;
@@ -97,6 +110,12 @@
     box-shadow: 5px 10px #888888;
     border-radius: 5px;
 }
+
+.top-header{
+  padding-left: 50px;
+}
+
+
 .account_actions{
     height: 50px;
     width: 200px;
