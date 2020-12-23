@@ -9,25 +9,22 @@
 </head>
 <body>
     <div class="container-fluid">
-    <div class="navBar">
+    <div>
         {% if 'user_id' in request.session %}
-            <h3>Welcome {{user.first_name}} {{user.last_name}}</p>
+            <h3 class="text-center top-header">Welcome back, {{user.first_name}} {{user.last_name}}!</p>
         {% else %}
-            <h3>Welcome to Quotes!</h3>
+            <h3 class="text-center top-header">Welcome to Quotes!</h3>
         {% endif %}
     </div>
 
     <nav class="navbar navbar-expand-lg navbar-nav_bar bg-nav_bar">
         <div class="container-fluid">
-            <a class="navbar-brand" href="{% url 'quotes' %}"><strong>Quotes</strong></a>
+            <a class="navbar-brand brand-padding" href="{% url 'quotes' %}"><strong>Quotes</strong></a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarSupportedContent">
                 <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link active" aria-current="page" href="#">Home</a>
-                    </li>
                     <li class="nav-item">
                         {% if 'user_id' in request.session %}
                         <a class="nav-link" href="/edit/{{user.id}}" >Edit Account</a>
@@ -35,18 +32,27 @@
                         <a class="nav-link" href="{% url 'create_account_page' %}">Create Account</a>
                         {% endif %}
                     </li>
-                </ul>
+                    {% if 'user_id' in request.session %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="/profile/{{user.id}}" >View Account</a>
+                    </li>
+                {% endif %}
                 {% if 'user_id' in request.session %}
-                    <form class="d-flex" action="logout" method="POST" class="logoutbtn">
+                </ul>
+                    <form class="d-flex login-padding" action="logout" method="POST" class="logoutbtn">
                         {% csrf_token %}
-                        <input class="btn btn-outline-success" type="submit" value="Logout">
+                        <input class="btn btn-outline-danger" type="submit" value="Logout">
                     </form>
                 {% else %}
-                <form class="d-flex" method="POST" action="{% url 'login' %}">
+                    <li class="nav-item">
+                        <p class="navbar-text login-text-margin" >Login:</p>
+                    </li>
+                </ul>
+                <form class="d-flex login-padding" method="POST" action="{% url 'login' %}">
                     {% csrf_token %}
                     <input class="form-control me-2" type="email" placeholder="Email" name="email">
                     <input class="form-control me-2" type="password" placeholder="Password" name="password">
-                    <button class="btn btn-outline-primary" type="submit">Search</button>
+                    <button class="btn btn-outline-primary" type="submit">Login!</button>
                 </form>
                 {% endif %}
             </div>
@@ -71,18 +77,19 @@
                 <input type="submit" value="Submit">
                 </form>
             {% else %}
-            <h3><a href="/"> Log in or Create Account to post quotes!</a></h3>
+            <h3><a href="/create_account"> Log in or Create Account to post quotes!</a></h3>
             {% endif %}
             </div>
 
             <div class="col-8">
                 <h3 class="text-justify daily-quotes" >Daily Quotes</h3>
                 <ul>
-                {% for quote in quotes %}
+                {% for quote in quotes reversed %}
                 <li class="nodots">
                     <div class="quoteBox">
                         <p>{{quote.author_by}}: "{{quote.quote}}"</p>
                         <p>Posted by: <a href="/profile/{{quote.posted_by.id}}">{{quote.posted_by.first_name}} </a></p>
+                        <p>Posted at: {{quote.created_at}}</p>
                         {% if quote.user_likes.count > 1 %}
                         <p> {{quote.user_likes.count}} people like this</p>
                         {% elif quote.user_likes.count == 0 %}
@@ -90,17 +97,30 @@
                         {% else %}
                         <p> {{quote.user_likes.count}} person likes this</p>
                         {% endif %}
+
+                        {% if 'user_id' not in request.session %}
+                        <a href="/create_account" class="link-danger" style="color:#FF0000;">Log in to leave a like!</a>
+                        {% else %}
                         {% if quote not in user.likes.all %}
                         <form action="like/{{quote.id}}" method="POST">
-                            <input type="submit" value="Like">
+                            <input type="submit" class="btn btn-outline-success" value="Like">
                             {% csrf_token %}
                         </form>
+
+                        {% else%}
+                        <form action="delete_like/{{quote.id}}" method="POST">
+                            <input type="submit" class="btn btn-outline-secondary" value="Unlike">
+                            {% csrf_token %}
+                        </form>
+
                         {% endif %}
                         {% if quote.posted_by == user %}
                         <form action="delete_quote/{{quote.id}}" method="POST">
                             {% csrf_token %}
-                            <input class="deletebtn" type="submit" value="Delete">
+                            <input class="deletebtn btn btn-outline-danger" type="submit" value="Delete">
                         </form>
+                        {% endif %}
+
                         {% endif %}
                     </div>
                 </li>
