@@ -71,9 +71,14 @@
     background-color: rgba(223, 209, 209, 0.788);
   }
   .reg{
-    height: 1000px;
-    width: 50%;
+    height: 360px;
     display: inline-block;
+    border: 1px black solid;
+    background-color: #7fbfe4;
+    box-shadow: 5px 10px #888888;
+    padding-left: 30px;
+    padding-top: 30px;
+    margin: 15px 0px 15px 10px;
   }
 
   .login-padding{
@@ -87,12 +92,6 @@
   .login-text-margin{
     margin-right: 10px;
     margin-left: 10px;
-  }
-
-  .loginPos{
-    position: absolute;
-    top:10px;
-    left:50%;
   }
 
   .daily-quotes{
@@ -125,6 +124,11 @@
 }
 .headMarg{
   margin-bottom: 100px;
+}
+
+.back_to_quotes_button{
+  margin-top: 40px;
+  margin-bottom:15px;
 }
 
 .logoutbtn{

@@ -9,38 +9,39 @@
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1><a href="{% url 'quotes' %}">Return to the Quotes</a></h1>
-        </div>
-        <div class="reg">
+        <div class="back_to_quotes_button">
             <a href="/quotes"><button class="btn btn-outline-primary">Head back the quotes!</button></a>
-            <h1>Registration</h1>
             {% if messages %}
-                <ul>
-                    {% for message in messages%}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
-                    {% endfor %}
-                </ul>
-            {% endif %}
-            <form action="create" method="POST">
-                {% csrf_token %}
-                <p>First Name: <input type="text" name="first_name"></p>
-                <p>Last Name: <input type="text" name="last_name"></p>
-                <p>Email: <input type="email" name="email"></p>
-                <p>Password: <input type="password" name="password"></p>
-                <p>Confirm Password: <input type="password" name="password_confirm"></p>
-                <input type="submit" value="Register!">
-            </form>
+                    <ul>
+                        {% for message in messages%}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red" >{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
         </div>
-    <div class="reg loginPos">
-        <h1>Login</h1>
-        <form action="login" method="POST">
-            {% csrf_token %}
-            <p>Email: <input type="email" name="email"></p>
-            <p>Password: <input type="password" name="password"></p>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+        <div class="row">
+            <div class="reg col-6">
+                <h1>Registration</h1>
+                <form action="create" method="POST">
+                    {% csrf_token %}
+                    <p>First Name: <input type="text" name="first_name"></p>
+                    <p>Last Name: <input type="text" name="last_name"></p>
+                    <p>Email: <input type="email" name="email"></p>
+                    <p>Password: <input type="password" name="password"></p>
+                    <p>Confirm Password: <input type="password" name="password_confirm"></p>
+                    <input type="submit" class="btn btn-secondary" value="Register!">
+                </form>
+            </div>
+            <div class="reg col-5">
+                <h1>Login</h1>
+                <form action="login" method="POST">
+                    {% csrf_token %}
+                    <p>Email: <input type="email" name="email"></p>
+                    <p>Password: <input type="password" name="password"></p>
+                    <input type="submit" class="btn btn-secondary" value="Login">
+                </form>
+            </div>
+        </div>
 </div>
 </body>
 </html>
