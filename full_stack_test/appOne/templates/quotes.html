@@ -9,13 +9,13 @@
 </head>
 <body>
     <div class="container-fluid">
-    <div class="top-pic-section">
-        {% if 'user_id' in request.session %}
-            <h3 class="text-center top-header">Welcome back, {{user.first_name}} {{user.last_name}}!</p>
-        {% else %}
-            <h3 class="text-center top-header">Welcome to Quotes!</h3>
-        {% endif %}
-    </div>
+        <div class="top-pic-section">
+            {% if 'user_id' in request.session %}
+                <h3 class="text-center top-header">Welcome back, {{user.first_name}} {{user.last_name}}!</p>
+            {% else %}
+                <h3 class="text-center top-header">Welcome to Quotes!</h3>
+            {% endif %}
+        </div>
 
 
     <nav class="navbar navbar-expand-lg navbar-nav_bar bg-nav_bar">
