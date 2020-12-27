@@ -1,0 +1,46 @@
+
+
+
+
+
+<nav class="navbar navbar-expand-lg navbar-nav_bar bg-nav_bar">
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"><img src="C:\Users\bvicc\Desktop\python_stack\projects\quotes\full_stack_test\appOne\static\images\filter.png" alt="filter image"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand brand-padding" href="{% url 'quotes' %}"><strong>Quotes</strong></a>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+                <li class="nav-item active">
+                    {% if 'user_id' in request.session %}
+                    <a class="nav-link" href="/edit/{{user.id}}" >Edit Account</a>
+                    {% else %}
+                    <a class="nav-link" href="{% url 'create_account_page' %}">Create Account</a>
+                    {% endif %}
+                </li>
+                {% if 'user_id' in request.session %}
+                <li class="nav-item">
+                    <a class="nav-link" href="/profile/{{user.id}}" >View Account</a>
+                </li>
+            {% endif %}
+            {% if 'user_id' in request.session %}
+            </ul>
+                <form class="d-flex login-padding" action="logout" method="POST" class="logoutbtn">
+                    {% csrf_token %}
+                    <input class="btn btn-outline-danger" type="submit" value="Logout">
+                </form>
+            {% else %}
+                <li class="nav-item">
+                    <p class="navbar-text login-text-margin" >Login:</p>
+                </li>
+            </ul>
+            <form class="login-padding form-inline my-2 my-lg-0" method="POST" action="{% url 'login' %}">
+                {% csrf_token %}
+                <input class="form-control mr-sm-2" type="email" placeholder="Email" name="email">
+                <input class="form-control mr-sm-2" type="password" placeholder="Password" name="password">
+                <button class="btn btn-outline-primary my-2 my-sm-0" type="submit">Login!</button>
+            </form>
+            {% endif %}
+        </div>
+    </div>
+</nav>
