@@ -101,7 +101,7 @@
   .quoteBox {
     border: 2px black solid;
     background-color: #7fbfe4;
-    height: 270px;
+    height: 300px;
     width: 300px;
     display: inline-block;
     padding: 10px;
@@ -9063,7 +9063,7 @@
   }
 
   body{
-    font-family: Kalam;
+    font-family: Gloria Hallelujah;
     font-weight: 900;
   }
 
