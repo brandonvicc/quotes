@@ -5,15 +5,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Quotes</title>
     {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
 </head>
 <body>
     <div class="container-fluid">
         <div class="top-pic-section">
             {% if 'user_id' in request.session %}
-                <h3 class="text-center top-header">Welcome back, {{user.first_name}} {{user.last_name}}!</p>
+                <h3 class="text-center top-header top-header-font">Welcome back, {{user.first_name}} {{user.last_name}}!</p>
             {% else %}
-                <h3 class="text-center top-header">Welcome to Quotes!</h3>
+                <h3 class="text-center top-header top-header-font">Welcome to Quotes!</h3>
             {% endif %}
         </div>
 
@@ -42,7 +43,7 @@
                 </ul>
                     <form class="d-flex login-padding" action="logout" method="POST" class="logoutbtn">
                         {% csrf_token %}
-                        <input class="btn btn-outline-danger" type="submit" value="Logout">
+                        <input class="btn btn-danger" type="submit" value="Logout">
                     </form>
                 {% else %}
                     <li class="nav-item">
@@ -53,7 +54,7 @@
                     {% csrf_token %}
                     <input class="form-control me-2" type="email" placeholder="Email" name="email">
                     <input class="form-control me-2" type="password" placeholder="Password" name="password">
-                    <button class="btn btn-outline-primary" type="submit">Login!</button>
+                    <button class="btn btn-primary" type="submit">Login!</button>
                 </form>
                 {% endif %}
             </div>
@@ -62,25 +63,28 @@
 
     <div class="row">
         <div class="col-4">
-            {% if 'user_id' in request.session %}
-            <h3>Add a Quote!</h3>
-                {% if messages %}
-                <ul>
-                    {% for message in messages%}
-                    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
-                    {% endfor %}
-                </ul>
+            <div class="add-quote-form">
+                {% if 'user_id' in request.session %}
+                <h3>Add a Quote!</h3>
+                    {% if messages %}
+                    <ul>
+                        {% for message in messages%}
+                        <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+                        {% endfor %}
+                    </ul>
+                    {% endif %}
+                    <form action="/create_quote" method="POST">
+                        {% csrf_token %}
+                    <p>Author   <input type="text" name="author_by"></p>
+                    <p class="align-top">Quote    <textarea name="quote"></textarea></p>
+                    <input class="btn btn-secondary" type="submit" value="Submit">
+                    </form>
+                {% else %}
+                <h3><a href="/create_account"> Log in or Create Account to post quotes!</a></h3>
                 {% endif %}
-                <form action="/create_quote" method="POST">
-                    {% csrf_token %}
-                <p>Author   <input type="text" name="author_by"></p>
-                <p class="align-top">Quote    <textarea name="quote"></textarea></p>
-                <input type="submit" value="Submit">
-                </form>
-            {% else %}
-            <h3><a href="/create_account"> Log in or Create Account to post quotes!</a></h3>
-            {% endif %}
             </div>
+        </div>
+
 
             <div class="col-8">
                 <h3 class="text-justify daily-quotes" >Daily Quotes</h3>
@@ -104,13 +108,13 @@
                         {% else %}
                         {% if quote not in user.likes.all %}
                         <form action="like/{{quote.id}}" method="POST">
-                            <input type="submit" class="btn btn-outline-success" value="Like">
+                            <input type="submit" class="btn btn-success" value="Like">
                             {% csrf_token %}
                         </form>
 
                         {% else%}
                         <form action="delete_like/{{quote.id}}" method="POST">
-                            <input type="submit" class="btn btn-outline-secondary" value="Unlike">
+                            <input type="submit" class="btn btn-secondary" value="Unlike">
                             {% csrf_token %}
                         </form>
 
@@ -118,7 +122,7 @@
                         {% if quote.posted_by == user %}
                         <form action="delete_quote/{{quote.id}}" method="POST">
                             {% csrf_token %}
-                            <input class="deletebtn btn btn-outline-danger" type="submit" value="Delete">
+                            <input class="deletebtn btn btn-danger" type="submit" value="Delete">
                         </form>
                         {% endif %}
 

@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
 </head>
 <body>
@@ -17,7 +18,7 @@
     {% if messages %}
         <ul>
             {% for message in messages%}
-            <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{message}}</li>
+            <li {% if message.tags %} class="{{ message.tags }}"{% endif %} style="color:red" >{{message}}</li>
             {% endfor %}
         </ul>
     {% endif %}

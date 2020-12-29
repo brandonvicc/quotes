@@ -9061,4 +9061,25 @@
       border: 1px solid #dee2e6 !important;
     }
   }
+
+  body{
+    font-family: Cinzel;
+    font-weight: 900;
+  }
+
+.add-quote-form{
+  margin-top:45px;
+  border: 2px black solid;
+  background-color: #7fbfe4;
+  height: 290px;
+  width: 300px;
+  display: inline-block;
+  padding: 10px;
+  box-shadow: 5px 10px #888888;
+  border-radius: 5px;
+}
+
+top-header-font{
+  font-family: Kaushan Script;
+}
   /*# sourceMappingURL=bootstrap.css.map */

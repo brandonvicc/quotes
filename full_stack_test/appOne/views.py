@@ -110,7 +110,8 @@ def update(request,id):
         if len(errors) > 0:
             for key, value in errors.items():
                 messages.error(request,value)
-                return redirect(f'/edit/{id}')
+                print(messages.error(request,value))
+            return redirect(f'/edit/{id}')
         else:
             update_this_user = User.objects.filter(id=id)
             if update_this_user:
@@ -121,8 +122,7 @@ def update(request,id):
                     update_this.first_name=request.POST['first_name']
                     update_this.last_name=request.POST['last_name']
                     print(update_this.email)
-                    if update_this.email != request.POST['email']:
-                        update_this.email=request.POST['email']
+                    update_this.email=request.POST['email']
                     update_this.save()
         return redirect('/quotes')
 

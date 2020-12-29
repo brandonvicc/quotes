@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Profile</title>
     {% load static %}
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
 </head>
 <body>
@@ -14,6 +15,9 @@
         {% csrf_token %}
         <input type="submit" value="Logout">
     </form>
+    <div class="user_info">
+        <p>{{user.email}}</p>
+    </div>
     {% for quote in user.posted_quotes.all %}
     <div class="quoteBox">
         <p>{{quote.author_by}}: "{{quote.quote}}"</p>
