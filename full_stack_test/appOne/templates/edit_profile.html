@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Edit Profile</title>
     {% load static %}
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Cinzel">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Kalam">
     <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.css'%}">
 </head>
 <body>
@@ -22,12 +22,12 @@
             {% endfor %}
         </ul>
     {% endif %}
-    <form action="/update/{{user.id}}" method="POST">
+    <form action="/update/{{user.id}}" method="POST" class="add-quote-form" style="margin: 0px 0px 0px 20px">
         {% csrf_token %}
         <p>First Name: <input type="text" name="first_name" value={{user.first_name}}></p>
         <p>Last Name: <input type="text" name="last_name" value={{user.last_name}}></p>
         <p>Email: <input type="text" name="email" value={{user.email}}></p>
-        <input type="submit" value="update">
+        <input type="submit" class="btn btn-secondary" value="Update">
     </form>
 </body>
 </html>
